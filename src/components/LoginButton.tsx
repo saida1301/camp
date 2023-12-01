@@ -1,41 +1,53 @@
 import React from 'react';
-import { TouchableOpacity, Text, Image, StyleSheet, View } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
-const LoginButton = () => {
+const LoginButton = ({ total, filled }: any) => {
+  const renderFilledPart = () => {
+    const filledWidth = (filled / total) * 100 + '%';
+
+    return (
+      <View style={[styles.filledPart, { width: filledWidth }]}>
+        <Text style={styles.tourNumberText}>{filled}</Text>
+      </View>
+    );
+  };
+
+  const renderUnfilledPart = () => {
+    const unfilledWidth = ((total - filled) / total) * 100 + '%';
+
+    return <View style={[styles.unfilledPart, { width: unfilledWidth }]} />;
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Image source={{ uri: "./src/assets/images/google.png" }} style={styles.image} />
-        <Text style={styles.buttonText}>Google Login</Text>
-      </TouchableOpacity>
+      {renderFilledPart()}
+      {renderUnfilledPart()}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    bottom: 20,
-    width: '100%',
-  },
-  buttonContainer: {
-    borderRadius: 8,
-    backgroundColor: 'yellow',
-    width: 336,
-    height: 45,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
     flexDirection: 'row',
-    gap: 30,
-    flexShrink: 0,
+    height: 24,
+    borderRadius: 4,
+    borderWidth: 1,
+    width:"50%",
+    borderColor: 'black',
+    overflow: 'hidden',
   },
-  image: {
-    width: 20, // Adjust the image width as needed
-    height: 20, // Adjust the image height as needed
+  filledPart: {
+    height: '100%',
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  buttonText: {
-    color: 'white', // Adjust the text color
+  unfilledPart: {
+    height: '100%',
+    backgroundColor: 'white',
+  },
+  tourNumberText: {
+    color: 'black',
   },
 });
 
