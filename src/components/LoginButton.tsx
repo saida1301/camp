@@ -20,8 +20,11 @@ const LoginButton = ({ total, filled }: any) => {
 
   return (
     <View style={styles.container}>
-      {renderFilledPart()}
-      {renderUnfilledPart()}
+      <View style={styles.progressBarContainer}>
+        {renderFilledPart()}
+        {renderUnfilledPart()}
+      </View>
+      <Text style={styles.progressText}>{`${filled}/${total}`}</Text>
     </View>
   );
 };
@@ -29,10 +32,14 @@ const LoginButton = ({ total, filled }: any) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 24,
+    alignItems: 'center',
+  },
+  progressBarContainer: {
+    flexDirection: 'row',
     borderRadius: 4,
     borderWidth: 1,
-    width:"50%",
+    width: 100, // Adjusted the width to accommodate the text
+    height: 14,
     borderColor: 'black',
     overflow: 'hidden',
   },
@@ -47,6 +54,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   tourNumberText: {
+    color: 'black',
+  },
+  progressText: {
+    marginLeft: 8, // Adjust the margin as needed
     color: 'black',
   },
 });

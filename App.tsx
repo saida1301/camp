@@ -1,36 +1,43 @@
-import React from 'react';
-import { View, Image, StyleSheet, ImageBackground } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import LoginButton from './src/components/LoginButton';
-import MainNavigator from './src/MainNavigator ';
-import Card from './src/components/Card';
- // Adjust the path accordingly
+import * as React from "react";
+import { Text, StyleSheet, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import ScrollableTabView from "react-native-scrollable-tab-view";
+import CampScreen from "./src/screens/CampScreen";
+// Import another screen or component
 
-const App = () => {
+const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-
-          {/* Other components or content you want to display */}
- 
-          {/* Render the MainNavigator component */}
-          <Card  total={20} filled={5} />
-          {/* <LoginButton total={20} filled={17} /> */}
+    <View style={styles.screenContainer}>
+      <Text>Home Screen</Text>
     </View>
   );
 };
 
+const App = () => {
+  return (
+    <NavigationContainer>
+      <ScrollableTabView
+        tabBarBackgroundColor="#f8f8f8"
+        tabBarActiveTextColor="#0077be"
+        tabBarInactiveTextColor="#555"
+        tabBarUnderlineStyle={styles.tabIndicator}
+      >
+        <HomeScreen tabLabel="Home" />
+        <CampScreen tabLabel="Camp" />
+  
+      </ScrollableTabView>
+    </NavigationContainer>
+  );
+};
+
 const styles = StyleSheet.create({
-  container: {
+  screenContainer: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  linearGradient: {
-    flex: 1,
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    alignItems: 'center',
+  tabIndicator: {
+    backgroundColor: "#0077be",
   },
 });
 

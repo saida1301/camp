@@ -1,114 +1,200 @@
-import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Dimensions, useColorScheme, ImageBackground } from 'react-native';
-import MainHeader from '../../components/MainHeader';
-import { borderRadius, colors, fontSizes, spacing } from '../../assets/themes';
-import LoginButton from '../../components/LoginButton';
+import React, { useState, useEffect } from 'react';
+import { View, ImageBackground, StyleSheet, Image, Alert, Dimensions, useColorScheme, TextInput, TouchableOpacity } from 'react-native';
+import { Input, Button, Text } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
+
 const { width } = Dimensions.get('window');
-const LoginScreen = ({ }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const handleChangePassword = (text: string) => {
-        setPassword(text);
-      };
-      const handleChangeUsername = (text: string) => {
-        setEmail(text);
-      };
-      const inputWidth = width * 0.95;
-      const isDarkMode = useColorScheme() === 'dark'
+
+
+const LoginScreen = () => {
+ 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleChangePassword = (text: string) => {
+    setPassword(text);
+  };
+  const handleChangeUsername = (text: string) => {
+    setEmail(text);
+  };
+
+  const inputWidth = width * 0.95;
+  const isDarkMode = useColorScheme() === 'dark';
+
+
   return (
-
-    <View style={{backgroundColor:"rgba(176, 176, 176, 1.0)", height:"100%"}}>
-      <View>
-          <MainHeader
-              imageUrl="C:\Users\saida\OneDrive\Desktop\campGlobe\CampGlobe\src\assets\images\logo.png"
-              leftText="Left Text"
-              rightText="Right Text" />
-          <View style={{ justifyContent: "center", alignSelf: "center", margin: 0, paddingTop: "25%" }}>
-              <Text style={styles.containerr}>Login</Text>
-
+    <ImageBackground
+      source={require('CampGlobe/src/assets/images/baku.jpeg')}
+      style={styles.backgroundImage}
+    >
+<LinearGradient
+  colors={['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.7)']}
+  style={styles.linearGradient}
+>
+        {/* <View style={styles.container}> */}
+          {/* Logo and App Name */}
+          <View style={styles.container}>
+          <View style={styles.leftContainer}>
+            <Image
+              source={require('CampGlobe/src/assets/images/logo.png')}
+              style={styles.image}
+            />
+            <Text style={styles.leftText}>CampGlobe</Text>
           </View>
-          <TouchableOpacity style={styles.buttonContainer}>
-              <Image source={{ uri: "./src/assets/images/google.png" }} style={styles.image} />
-              <Text style={styles.buttonText}>Google Login</Text>
-          </TouchableOpacity>
-          <View style={styles.dividerContainer}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.orText}>Or</Text>
-              <View style={styles.dividerLine} />
-          </View>
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-              <TextInput
-                  onChangeText={handleChangeUsername}
-                  placeholder={"Email"}
-                  style={[
-                      styles.input,
-                      { width: inputWidth, },
-                      { color: isDarkMode ? "white" : "black" } // Add this line
-                  ]}
-                  placeholderTextColor={isDarkMode ? "white" : "black"}
-                  keyboardType="email-address" />
-
-              <TextInput
-
-                  onChangeText={handleChangePassword}
-                  placeholder={"Password"}
-                  style={[
-                      styles.input,
-                      { width: inputWidth },
-                      { color: isDarkMode ? "white" : "black" } // Add this line
-                  ]}
-                  placeholderTextColor={isDarkMode ? "white" : "black"} />
-          </View>
-
+          <Text style={styles.rightText}>Camping</Text>
+        </View>
+        <View style={styles.centerContainer}>
+        <Text style={styles.headerText}>Log in</Text>
       </View>
-      <LoginButton />
+      <TouchableOpacity style={styles.buttonContainer}>
+      <Image
+              source={require('CampGlobe/src/assets/images/google.png')}
+              style={{width:24, height:24}}
+            />
+        <Text style={styles.buttonText}>Google Login</Text>
+      </TouchableOpacity>
+    <View style={styles.dividerContainer}>
+        <View style={styles.dividerLine} />
+        <Text style={styles.orText}>Or</Text>
+        <View style={styles.dividerLine} />
+      </View>
+          {/* Google Login */}
+
+
+          {/* Email and Password Inputs */}
+          <View style={{ justifyContent: 'center', alignSelf: 'center', bottom:40 }}>
+        <TextInput
+          onChangeText={handleChangeUsername}
+          placeholder={'Email'}
+          style={[
+            styles.input,
+            { width: inputWidth },
+ 
+          ]}
+          placeholderTextColor="white"
+          keyboardType="email-address"
+        />
+
+        <TextInput
+          onChangeText={handleChangePassword}
+          placeholder={'Password'}
+          style={[
+            styles.input,
+            { width: inputWidth },
+   
+          ]}
+          placeholderTextColor="white"
+        />
       </View>
 
+          {/* Login Button */}
+<View style={{top:"20%"}}>
+
+<Button
+  title="Log in"
+  titleStyle={{
+    color: '#FFF', // Replace with your desired color value
+    fontFamily: 'Lato',
+    fontSize: 18,
+    fontWeight: '400',
+    lineHeight: 25.2,
+  }}
+  buttonStyle={{ ...styles.loginButton, backgroundColor: '#33A457' }}
+  onPress={() => Alert.alert('Login pressed')}
+/>
+
+</View>
+        {/* </View> */}
+      </LinearGradient>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)'
-  },
-  dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 35,
-  },
-  dividerLine: {
+  backgroundImage: {
     flex: 1,
-    borderBottomWidth: 1,
-    borderBottomColor: '#D4D6DD',
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
-  input: {
-    borderRadius: borderRadius.small,
-    fontSize: fontSizes.medium,
-    borderColor: "#B0B0B0" + '60',
-    borderWidth: 1,
+  buttonText: {
+    color: 'white',
+    fontFamily: 'Lato',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  buttonContainer: {
+    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.20)',
+    width: "100%", // Adjust width as needed
+    height: 45,
+bottom:70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
 
-    paddingHorizontal: spacing.medium,
-    marginTop: 20,
-    marginBottom: -10,
+    flexShrink: 0,
+    gap: 18,
   },
-  orText: {
-    marginHorizontal: 10,
-    color: '#D4D6DD',
-    fontWeight: 'bold',
+  
+  
+  centerContainer: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    // paddingTop: '5%',
+    bottom:"12%"
   },
-  containerr:{
+  headerText: {
     color: '#000',
     fontFamily: 'Lato',
     fontSize: 26,
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 36.4,
-    marginBottom:20
+    // marginBottom: 20,
+  },
+  linearGradient: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  dividerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width:"70%",
+    alignSelf:"center",
+    bottom:40,
+    justifyContent: 'center',
+    paddingVertical: 20,
+  },
+  dividerLine: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D4D6DD',
+  },
+  orText: {
+    marginHorizontal: 10,
+    color: '#D4D6DD',
+    fontWeight: 'bold',
+  },
+  input: {
+    borderRadius: 8,
+    fontSize: 16,
+    borderWidth: 1,
+    
+    borderColor: 'rgba(255, 255, 255, 1)', // Replace with your desired color value
+    paddingHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 0,
+    bottom:"55%",
+    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+
   },
   leftContainer: {
     flexDirection: 'row',
@@ -121,44 +207,54 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   leftText: {
-    fontSize: 16,
-  },
-  rightText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  buttonContainer: {
-    borderRadius: 8,
-    backgroundColor: 'red',
- 
-    width: 336,
-    height: 45,
-alignItems:"center",
-    justifyContent: 'center',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    gap:30,
-    flexShrink: 0,
-  },
-  buttonContainers: {
-    borderRadius: 8,
-    backgroundColor: 'red',
- marginTop:0,
-    width: 336,
-    height: 45,
-alignItems:"center",
-    justifyContent: 'center',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    gap:30,
-    flexShrink: 0,
-  },
-  buttonText: {
-    color: colors.white,
+    color: '#000', // Replace with your color value
     fontFamily: 'Lato',
-    fontSize: 16, // You can adjust the font size based on your design
+    fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '500',
+    fontWeight: '400',
+    lineHeight: 25.2, // Adjust as needed
+  },
+  
+  rightText: {
+    color: '#000', // Replace with your color value
+    fontFamily: 'Lato',
+    fontSize: 16,
+    fontStyle: 'normal',
+    fontWeight: '300',
+    lineHeight: 22.4, // Adjust as needed
+  },
+  
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginLeft: 20,
+  },
+  appName: {
+    color: 'white',
+  },
+  campingWord: {
+    alignSelf: 'flex-end',
+    marginBottom: 20,
+    color: 'white',
+  },
+  googleLoginContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  googleLoginText: {
+    color: 'white',
+    marginLeft: 10,
+  },
+  inputContainer: {
+    marginBottom: 20,
+  },
+  loginButton: {
+    backgroundColor: '#4285f4',
+    
+  // Change to your desired color
   },
 });
 
