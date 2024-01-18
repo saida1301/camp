@@ -7,7 +7,7 @@ const MainHeader = ({ imageUrl, leftText, rightText }: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
-        <Image source={{ uri: imageUrl }} style={styles.image} />
+        {/* <Image source={{ uri: imageUrl }} style={styles.image} /> */}
         <Text style={styles.leftText}>{leftText}</Text>
       </View>
       <Text style={styles.rightText}>{rightText}</Text>
@@ -20,25 +20,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: width * 0.07, // Use a percentage of the screen width for padding
-    backgroundColor: "rgba(176, 176, 176, 1.0)",
+    padding: width * 0.07, 
+   
   },
   leftContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   image: {
-    width: width * 0.15, // Use a percentage of the screen width for image width
-    height: width * 0.15, // Use a percentage of the screen width for image height
-    borderRadius: width * 0.075, // Use a percentage of the screen width for border radius
-    marginRight: width * 0.03, // Use a percentage of the screen width for margin
-    backgroundColor: 'red',
+    width: width * 0.15, 
+    height: width * 0.15, 
+    borderRadius: width * 0.075, 
+    marginRight: width * 0.03, 
+
   },
   leftText: {
-    fontSize: width * 0.04, // Use a percentage of the screen width for font size
+    fontSize: width * 0.04, 
   },
   rightText: {
-    fontSize: width * 0.04, // Use a percentage of the screen width for font size
+    fontSize: width * 0.04,
     fontWeight: 'bold',
   },
 });

@@ -11,13 +11,15 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [contact_info, setContact_info] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [city, setCity] = useState('');
+
 
 
 
   const countryCodes = [
     { label: 'Select Country Code', value: '' },
     { label: '+994', value: '+994' },
-    // Add more country codes here
+
   ];
 
   const handlePress = () => {
@@ -41,35 +43,57 @@ const Register = () => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
+  const cities = [
+    'New York',
+    'Los Angeles',
+    'Chicago',
+    'Houston',
+    'Phoenix',
+    'Philadelphia',
+    'San Antonio',
+    'San Diego',
+    'Dallas',
+    'San Jose',
 
+  ];
+  
+  const [filteredCities, setFilteredCities] = useState<string[]>([]);
+
+
+  
+  const handleCityChange = (text: string) => {
+    setCity(text);
+  
+
+    const filtered = cities.filter((city) =>
+      city.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredCities(filtered);
+  };
+  
   return (
-    <ImageBackground
-      source={require('CampGlobe/src/assets/images/baku.jpeg')}
-      style={styles.backgroundImage}
-    >
+
 <LinearGradient
-  colors={['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.7)']}
+  locations={[0, 1]}
+        colors={["#75b6dc", "rgba(117, 182, 220, 0)"]}
+        useAngle={true}
+        angle={180}
   style={styles.linearGradient}
 >
-        {/* <View style={styles.container}> */}
-          {/* Logo and App Name */}
+
      
           <View style={styles.container}>
           <View style={styles.leftContainer}>
-            <Image
-              source={require('CampGlobe/src/assets/images/logo.png')}
-              style={styles.image}
-            />
+          
             <Text style={styles.leftText}>CampGlobe</Text>
           </View>
           <Text style={styles.rightText}>Camping</Text>
         </View>
 
-          {/* Google Login */}
 
 
-          {/* Email and Password Inputs */}
-          <View style={{ justifyContent: 'center', alignSelf: 'center', bottom:40 }}>
+
+          <View style={{ justifyContent: 'center', alignSelf: 'center', top:"10%" }}>
         <TextInput
           onChangeText={handleChangeUsername}
           placeholder={'Email'}
@@ -126,7 +150,7 @@ const Register = () => {
               flex: 1,
               alignSelf:"center",
               justifyContent:"center"
-     // Center the content vertically
+
             },
           ]}
         >
@@ -168,29 +192,52 @@ const Register = () => {
         placeholderTextColor="#FDFDFD"
         keyboardType="phone-pad"
       />
+      
     </View>
+    <TextInput
+            onChangeText={handleCityChange}
+            placeholder={'City'}
+            style={[styles.input, { width: inputWidth }]}
+            placeholderTextColor="white"
+          />
+          {filteredCities.length > 0 && (
+            <View style={styles.filteredCitiesContainer}>
+              {filteredCities.map((city) => (
+                <TouchableOpacity
+                  key={city}
+                  style={styles.filteredCityItem}
+                  onPress={() => {
+                    setCity(city);
+                    setFilteredCities([]);
+                  }}
+                >
+                  <Text style={{ color: 'white' }}>{city}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+
   </View>
 
-          {/* Login Button */}
-<View style={{top:"20%"}}>
-
-<Button
-  title="Log in"
-  titleStyle={{
-    color: '#FFF', // Replace with your desired color value
-    fontFamily: 'Lato',
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 25.2,
-  }}
-  buttonStyle={{ ...styles.loginButton, backgroundColor: '#33A457' }}
-  onPress={() => Alert.alert('Login pressed')}
-/>
-
+          <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 20 }}>
+  <Button
+    title="Log in"
+    titleStyle={{
+      color: '#FFF',
+      fontFamily: 'Lato',
+      fontSize: 18,
+      fontWeight: '400',
+      lineHeight: 25.2,
+    }}
+    buttonStyle={{ ...styles.loginButton, backgroundColor: '#33A457' }}
+    onPress={() => Alert.alert('Login pressed')}
+  />
 </View>
-        {/* </View> */}
+
+
+
       </LinearGradient>
-    </ImageBackground>
+  
   );
 };
 
@@ -206,10 +253,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  filteredCitiesContainer: {
+    position: 'absolute',
+    bottom: -110, 
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 8,
+    marginHorizontal: 0,
+    maxHeight: 120,
+    overflow: 'hidden',
+  },
+  filteredCityItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center', // Center the content vertically
-    alignItems: 'center', // Center the content horizontally
+    justifyContent: 'center', 
+    alignItems: 'center', 
     marginTop: 60,
     backgroundColor: 'white',
     padding: 20,
@@ -218,7 +282,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    width: '100%', // Make the item full width
+    width: '100%', 
   },
   cancelButton: {
     marginTop: 10,
@@ -226,7 +290,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     borderRadius: 8,
     backgroundColor: 'rgba(255, 255, 255, 0.20)',
-    width: "100%", // Adjust width as needed
+    width: "100%", 
     height: 45,
 bottom:70,
     justifyContent: 'center',
@@ -282,7 +346,7 @@ bottom:70,
     fontSize: 16,
     borderWidth: 1,
     
-    borderColor: 'rgba(255, 255, 255, 1)', // Replace with your desired color value
+    borderColor: 'rgba(255, 255, 255, 1)',
     paddingHorizontal: 20,
     marginTop: 20,
     marginBottom: 10,
@@ -292,9 +356,8 @@ bottom:70,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 0,
-    bottom:"55%",
-    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  top:20
+   
 
   },
   leftContainer: {
@@ -308,21 +371,21 @@ bottom:70,
     marginRight: 10,
   },
   leftText: {
-    color: '#000', // Replace with your color value
+    color: '#000', 
     fontFamily: 'Lato',
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '400',
-    lineHeight: 25.2, // Adjust as needed
+    lineHeight: 25.2, 
   },
   
   rightText: {
-    color: '#000', // Replace with your color value
+    color: '#000', 
     fontFamily: 'Lato',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '300',
-    lineHeight: 22.4, // Adjust as needed
+    lineHeight: 22.4, 
   },
   
   logoContainer: {
@@ -355,7 +418,7 @@ bottom:70,
   loginButton: {
     backgroundColor: '#4285f4',
     
-  // Change to your desired color
+ 
   },
 });
 

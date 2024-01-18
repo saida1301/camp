@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 4,
     borderWidth: 1,
-    width: 100, // Adjusted the width to accommodate the text
+    width: 100, 
     height: 14,
     borderColor: 'black',
     overflow: 'hidden',
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   progressText: {
-    marginLeft: 8, // Adjust the margin as needed
+    marginLeft: 8, 
     color: 'black',
   },
 });

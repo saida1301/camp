@@ -1,14 +1,32 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import Camp from "../components/Camp";
+import DetailsScreen from "../components/DetailsScreen";
+
+
+const Stack = createStackNavigator();
 
 const CampScreen = () => {
-  const data = [{ key: '1' }, { key: '2' }, { key: '3' }]; // Add your data here
+  const navigation = useNavigation();
 
-  const renderItem = ({ item }) => (
-    <View style={styles.campContainer}>
-      <Camp />
-    </View>
+  const data = [
+    { key: '1', total: 20, filled: 15, name:"saida" },
+    { key: '2', total: 20, filled: 10 },
+    { key: '3', total: 20, filled: 18 },
+  ];
+
+  const renderItem = ({ item }: any) => (
+      <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('campInner', { campData: item });
+      }}
+    >
+      <View style={styles.campContainer}>
+        <Camp data={item} />
+      </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -20,6 +38,7 @@ const CampScreen = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
+
     </View>
   );
 };
@@ -27,12 +46,12 @@ const CampScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
+    paddingLeft: 30,
+    paddingTop: 10,
     backgroundColor: "#fff",
-
   },
   campContainer: {
-    marginRight: 40, // Adjust margin as needed
+    marginRight: 40,
   },
 });
 

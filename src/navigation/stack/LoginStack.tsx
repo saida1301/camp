@@ -2,19 +2,18 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
+import RegisterScreen from '../../screens/Auth/RegisterScreen';
+import SplashScreen from '../../screens/SplashScreen';
 import LoginScreen from '../../screens/Auth/LoginScreen';
-import Register from '../../screens/Auth/RegisterScreen';
-
-
-
+import CampsScreen from '../../components/CampsScreen';
 
 const LoginStack = () => {
     const Stack = createNativeStackNavigator();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // This effect could be replaced with a call to an authentication service to check if the user is already logged in
     useEffect(() => {
-        // Simulating a delay to check if user is already logged in
+     
         setTimeout(() => {
             setIsLoggedIn(true);
         }, 2000);
@@ -22,27 +21,31 @@ const LoginStack = () => {
 
     if (isLoggedIn) {
         return (
-            <Stack.Navigator
-                screenOptions={{
-                    headerShown: false,
-                }}>
-                <Stack.Screen name="login" component={LoginScreen} />
-            </Stack.Navigator>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen name="splash" component={SplashScreen} />
+            <Stack.Screen name="camps" component={CampsScreen} /> 
+          </Stack.Navigator>
         );
-    } else {
+      } else {
         return (
             <Stack.Navigator
                 screenOptions={{
                     headerShown: false,
                 }}>
                 <Stack.Screen name="login" component={LoginScreen} />
-                <Stack.Screen name="signup" component={Register} />
-             
+                <Stack.Screen name="signup" component={RegisterScreen} />
+                <Stack.Screen name="camps" component={CampsScreen} />
             </Stack.Navigator>
         );
     }
 }
 
-export default LoginStack
+export default LoginStack;
+
+
+
 
 const styles = StyleSheet.create({})
